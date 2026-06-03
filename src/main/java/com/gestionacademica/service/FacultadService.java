@@ -2,16 +2,17 @@ package com.gestionacademica.service;
 
 import com.gestionacademica.model.Facultad;
 import java.util.List;
+import org.springframework.lang.NonNull;
 
 public interface FacultadService {
 
-    Facultad crearFacultad(Facultad facultad);
+    @NonNull Facultad crearFacultad(@NonNull Facultad facultad);
 
     List<Facultad> obtenerTodasLasFacultades();
 
-    Facultad obtenerFacultadPorId(Long id);
+    @NonNull Facultad obtenerFacultadPorId(@NonNull Long id);
 
-    Facultad actualizarFacultad(Long id, Facultad facultad);
+    @NonNull Facultad actualizarFacultad(@NonNull Long id, @NonNull Facultad facultad);
 
-    void eliminarFacultad(Long id);
+    void eliminarFacultad(@NonNull Long id);
 }

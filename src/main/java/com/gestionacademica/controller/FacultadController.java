@@ -5,6 +5,7 @@ import com.gestionacademica.service.FacultadService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/facultades")
@@ -29,8 +31,8 @@ public class FacultadController {
     }
 
     @PostMapping
-    public ResponseEntity<Facultad> crearFacultad(@Valid @RequestBody Facultad facultad) {
-        Facultad creada = facultadService.crearFacultad(facultad);
+    public ResponseEntity<Facultad> crearFacultad(@Valid @RequestBody @NonNull Facultad facultad) {
+        Facultad creada = Objects.requireNonNull(facultadService.crearFacultad(facultad));
         return new ResponseEntity<>(creada, HttpStatus.CREATED);
     }
 
@@ -40,17 +42,17 @@ public class FacultadController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Facultad> obtenerFacultadPorId(@PathVariable Long id) {
+    public ResponseEntity<Facultad> obtenerFacultadPorId(@PathVariable @NonNull Long id) {
         return ResponseEntity.ok(facultadService.obtenerFacultadPorId(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Facultad> actualizarFacultad(@PathVariable Long id, @Valid @RequestBody Facultad facultad) {
-        return ResponseEntity.ok(facultadService.actualizarFacultad(id, facultad));
+    public ResponseEntity<Facultad> actualizarFacultad(@PathVariable @NonNull Long id, @Valid @RequestBody @NonNull Facultad facultad) {
+        return ResponseEntity.ok(Objects.requireNonNull(facultadService.actualizarFacultad(id, facultad)));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarFacultad(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminarFacultad(@PathVariable @NonNull Long id) {
         facultadService.eliminarFacultad(id);
         return ResponseEntity.noContent().build();
     }
